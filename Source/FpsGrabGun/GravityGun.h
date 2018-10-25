@@ -39,4 +39,7 @@ public:
 	void Grab();
 	UFUNCTION(BlueprintCallable)
 	void Release();
+
+	UFUNCTION(BlueprintCallable)
+	class UStaticMeshComponent* getPickedObject() { return pickedObject; }
 };
