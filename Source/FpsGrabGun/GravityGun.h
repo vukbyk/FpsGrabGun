@@ -22,7 +22,7 @@ public:
 	void Fire() override;
 	void FireSecondary() override;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class AActor* HoldingItem;
 
 	UPROPERTY(EditAnywhere)
@@ -35,8 +35,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	class USoundBase* GrabSound;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void Grab();
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void Release();
 };

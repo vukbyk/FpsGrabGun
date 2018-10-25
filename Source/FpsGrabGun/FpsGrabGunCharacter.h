@@ -15,9 +15,9 @@ class AFpsGrabGunCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	/** Pawn mesh: 1st person view (arms; seen only by self) */
-	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
-	class USkeletalMeshComponent* Mesh1P;
+	///** Pawn mesh: 1st person view (arms; seen only by self) */
+	//UPROPERTY(VisibleAnywhere, Category=Mesh, meta = (AllowPrivateAccess = "true"))
+	//class USkeletalMeshComponent* Mesh1P;
 
 	/** Gun mesh: 1st person view (seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
@@ -36,8 +36,8 @@ class AFpsGrabGunCharacter : public ACharacter
 public:
 	AFpsGrabGunCharacter();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Mesh)
-	class AWeapon* CurrentWeapon;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Mesh)
+	//class AWeapon* CurrentWeapon;
 
 protected:
 	virtual void BeginPlay();
@@ -61,12 +61,12 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category=Projectile)
 	TSubclassOf<class AFpsGrabGunProjectile> ProjectileClass;
 
-	/** Sound to play each time we fire */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
-	class USoundBase* FireSound;
+	///** Sound to play each time we fire */
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
+	//class USoundBase* FireSound;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class USoundBase* FireSecSound;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	//class USoundBase* FireSecSound;
 
 	/** AnimMontage to play each time we fire */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
@@ -108,7 +108,7 @@ protected:
 
 public:
 	/** Returns Mesh1P subobject **/
-	FORCEINLINE class USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
+	//FORCEINLINE class USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 

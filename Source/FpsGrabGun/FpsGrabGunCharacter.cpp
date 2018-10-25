@@ -43,22 +43,13 @@ AFpsGrabGunCharacter::AFpsGrabGunCharacter()
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
 	// Create a mesh component that will be used when being viewed from a '1st person' view (when controlling this pawn)
-	Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
-	Mesh1P->SetOnlyOwnerSee(false);
-	Mesh1P->SetupAttachment(FirstPersonCameraComponent);
-	Mesh1P->bCastDynamicShadow = false;
-	Mesh1P->CastShadow = false;
-	Mesh1P->RelativeRotation = FRotator(1.9f, -19.19f, 5.2f);
-	Mesh1P->RelativeLocation = FVector(-0.5f, -4.4f, -155.7f);
-
-	//FP_Gun = NULL;
-	// Create a gun mesh component
-	FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
-	FP_Gun->SetOnlyOwnerSee(true);			// only the owning player will see this mesh
-	FP_Gun->bCastDynamicShadow = false;
-	FP_Gun->CastShadow = false;
-	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
-	FP_Gun->SetupAttachment(RootComponent);
+	//Mesh1P = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
+	//Mesh1P->SetOnlyOwnerSee(false);
+	//Mesh1P->SetupAttachment(FirstPersonCameraComponent);
+	//Mesh1P->bCastDynamicShadow = false;
+	//Mesh1P->CastShadow = false;
+	//Mesh1P->RelativeRotation = FRotator(1.9f, -19.19f, 5.2f);
+	//Mesh1P->RelativeLocation = FVector(-0.5f, -4.4f, -155.7f);
 
 	//FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
 	//FP_MuzzleLocation->SetupAttachment(FP_Gun);
@@ -70,9 +61,16 @@ AFpsGrabGunCharacter::AFpsGrabGunCharacter()
 	// Note: The ProjectileClass and the skeletal mesh/anim blueprints for Mesh1P, FP_Gun, and VR_Gun 
 	// are set in the derived blueprint asset named MyCharacter to avoid direct content references in C++.
 
-	
-	CurrentWeapon = CreateDefaultSubobject<AGravityGun>(TEXT("currentWeapon"));
+	////FP_Gun = NULL;
+	//// Create a gun mesh component
+	//FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
+	//FP_Gun->SetOnlyOwnerSee(true);			// only the owning player will see this mesh
+	//FP_Gun->bCastDynamicShadow = false;
+	//FP_Gun->CastShadow = false;
+	//// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
+	//FP_Gun->SetupAttachment(RootComponent);
 
+	//CurrentWeapon = CreateDefaultSubobject<AGravityGun>(TEXT("currentWeapon"));
 }
 
 void AFpsGrabGunCharacter::BeginPlay()
@@ -80,15 +78,15 @@ void AFpsGrabGunCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
-	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
-	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+	////Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
+	//FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 
-	if (CurrentWeapon)
-	{
-		CurrentWeapon->AttachToComponent(FirstPersonCameraComponent, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("CurrentWeapon"));
-		CurrentWeapon->RegisterAllActorTickFunctions(true, true);
-		FP_Gun->SetSkeletalMesh(CurrentWeapon->SkeletalMeshComponent->SkeletalMesh);
-	}
+	//if (CurrentWeapon)
+	//{
+	//	CurrentWeapon->AttachToComponent(FirstPersonCameraComponent, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("CurrentWeapon"));
+	//	CurrentWeapon->RegisterAllActorTickFunctions(true, true);
+	//	FP_Gun->SetSkeletalMesh(CurrentWeapon->SkeletalMeshComponent->SkeletalMesh);
+	//}
 
 
 	// Show or hide the two versions of the gun based on whether or not we're using motion controllers.
@@ -132,25 +130,25 @@ void AFpsGrabGunCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 
 void AFpsGrabGunCharacter::OnFire()
 {
-	if (CurrentWeapon)
-	{
-		CurrentWeapon->Fire();
+	//if (CurrentWeapon)
+	//{
+	//	CurrentWeapon->Fire();
 
-		// try and play a firing animation if specified
-		if (FireAnimation != NULL)
-		{
-			// Get the animation object for the arms mesh
-			UAnimInstance* AnimInstance = Mesh1P->GetAnimInstance();
-			if (AnimInstance != NULL)
-			{
-				AnimInstance->Montage_Play(FireAnimation, 1.f);
-			}
-		}
-		if (FireSound != NULL)
-		{
-			UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-		}
-	}
+	//	 try and play a firing animation if specified
+	//	if (FireAnimation != NULL)
+	//	{
+	//		// Get the animation object for the arms mesh
+	//		UAnimInstance* AnimInstance = Mesh1P->GetAnimInstance();
+	//		if (AnimInstance != NULL)
+	//		{
+	//			AnimInstance->Montage_Play(FireAnimation, 1.f);
+	//		}
+	//	}
+	//	if (FireSound != NULL)
+	//	{
+	//		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+	//	}
+	//}
 
 	////GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("Fire")));
 	//// try and fire a projectile
@@ -188,14 +186,14 @@ void AFpsGrabGunCharacter::OnFire()
 
 void AFpsGrabGunCharacter::OnFireSecundary()
 {
-	if (CurrentWeapon)
-	{
-		if (FireSecSound != NULL)
-		{
-			UGameplayStatics::PlaySoundAtLocation(this, FireSecSound, GetActorLocation());
-		}
-		CurrentWeapon->FireSecondary();
-	}
+	//if (CurrentWeapon)
+	//{
+	//	if (FireSecSound != NULL)
+	//	{
+	//		UGameplayStatics::PlaySoundAtLocation(this, FireSecSound, GetActorLocation());
+	//	}
+	//	//CurrentWeapon->FireSecondary();
+	//}
 }
 
 void AFpsGrabGunCharacter::MoveForward(float Value)

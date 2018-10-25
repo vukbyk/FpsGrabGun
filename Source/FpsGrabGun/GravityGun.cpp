@@ -31,13 +31,15 @@ AGravityGun::AGravityGun()
 
 
 
-	SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
-	RootComponent = SkeletalMeshComponent;
-	SkeletalMeshComponent->SetSkeletalMesh(ConstructorStatics.Mesh.Get());	// Set static mesh
-	SkeletalMeshComponent->SetOnlyOwnerSee(true);			// only the owning player will see this mesh
-	SkeletalMeshComponent->bCastDynamicShadow = false;
-	SkeletalMeshComponent->CastShadow = false;
-	SkeletalMeshComponent->SetupAttachment(RootComponent);
+	//SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
+	//RootComponent = SkeletalMeshComponent;
+	//SkeletalMeshComponent->SetSkeletalMesh(ConstructorStatics.Mesh.Get());	// Set static mesh
+	//SkeletalMeshComponent->SetOnlyOwnerSee(false);			// only the owning player will see this mesh
+	//SkeletalMeshComponent->SetOwnerNoSee(true);
+	//SkeletalMeshComponent->SetVisibility(true, true);
+	////SkeletalMeshComponent->bCastDynamicShadow = false;
+	////SkeletalMeshComponent->CastShadow = false;
+	//SkeletalMeshComponent->SetupAttachment(RootComponent);
 
 	HoldingItem = NULL;
 	pickedObject = NULL;
@@ -73,7 +75,7 @@ void AGravityGun::Tick(float DeltaTime)
 		FVector camera = GetActorLocation();
 		FVector catchLocation = camera
 			+ GetActorUpVector() * 100
-			+ GetActorForwardVector() * 250;
+			+ GetActorForwardVector() * 350;
 		//+ GetActorRightVector() * 120;
 
 
@@ -102,7 +104,7 @@ void AGravityGun::Fire()
 	}
 	if (pickedObject)
 	{
-		pickedObject->AddImpulse(GetActorForwardVector() * 3000 * pickedObject->GetMass());
+		pickedObject->AddImpulse(GetActorForwardVector() * 5000 * pickedObject->GetMass());
 		Release();
 	}
 	if (HoldingItem && !pickedObject)
@@ -110,7 +112,7 @@ void AGravityGun::Fire()
 		if (HoldingItem->GetRootComponent()->IsSimulatingPhysics() && HoldingItem->GetRootComponent()->GetClass()->IsChildOf(UStaticMeshComponent::StaticClass()))
 		{
 			pickedObject = (UStaticMeshComponent*)HoldingItem->GetRootComponent();
-			pickedObject->AddImpulse(GetActorForwardVector() * 3000 * pickedObject->GetMass());
+			pickedObject->AddImpulse(GetActorForwardVector() * 5000 * pickedObject->GetMass());
 			pickedObject = NULL;
 		}
 	}
@@ -131,9 +133,12 @@ void AGravityGun::FireSecondary()
 
 void AGravityGun::Release()
 {
-	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Green, FString::Printf(TEXT("Released %s!!"), *pickedObject->GetName()));
-	pickedObject->SetEnableGravity(true);
-	pickedObject = NULL;
+	if (pickedObject)
+	{
+		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Green, FString::Printf(TEXT("Released %s!!"), *pickedObject->GetName()));
+		pickedObject->SetEnableGravity(true);
+		pickedObject = NULL;
+	}
 }
 
 void AGravityGun::Grab()
