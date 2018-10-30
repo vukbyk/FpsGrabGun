@@ -23,8 +23,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	//UPROPERTY(EditAnywhere)
-	//class USkeletalMeshComponent* SkeletalMeshComponent;
+	UPROPERTY(EditAnywhere)
+	class USkeletalMeshComponent* SkeletalMeshComponent;
 
 	UFUNCTION(BlueprintCallable)
 	virtual void Fire() {};

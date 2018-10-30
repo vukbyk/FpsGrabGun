@@ -49,7 +49,7 @@ void AGravityGun::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);	
 	//DrawDebugDirectionalArrow(GetWorld(), GetActorLocation(), GetActorLocation()+ GetActorForwardVector()*1000, 120.f, FColor::Cyan, false, -1, 2, 5.f);
-	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Green, FString::Printf(TEXT("Actor %s!!"), *GetActorForwardVector().ToString()));
+	//if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Green, FString::Printf(TEXT("Actor %s!!"), *GetActorForwardVector().ToString()));
 
 	FVector Start = GetActorLocation();
 	FVector ForwardVector = GetActorForwardVector();

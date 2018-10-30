@@ -5,9 +5,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "PickableObject.h"
-
+#include "Weapon.h"
 
 #include "FpsGrabGunCharacter.generated.h"
+
+
 class UInputComponent;
 
 UCLASS(config=Game)
@@ -36,8 +38,9 @@ class AFpsGrabGunCharacter : public ACharacter
 public:
 	AFpsGrabGunCharacter();
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Mesh)
-	//class AWeapon* CurrentWeapon;
+	UPROPERTY(EditAnywhere, AdvancedDisplay, BlueprintReadWrite, Category = Mesh)
+	TSubclassOf<AWeapon> CurrentWeapon;
+
 
 protected:
 	virtual void BeginPlay();

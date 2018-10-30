@@ -70,7 +70,8 @@ AFpsGrabGunCharacter::AFpsGrabGunCharacter()
 	//// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
 	//FP_Gun->SetupAttachment(RootComponent);
 
-	//CurrentWeapon = CreateDefaultSubobject<AGravityGun>(TEXT("currentWeapon"));
+	//CurrentWeapon = CreateDefaultSubobject<AWeapon>(TEXT("currentWeapon"));
+	//CurrentWeapon->AttachToComponent(FirstPersonCameraComponent, FAttachmentTransformRules::KeepRelativeTransform, TEXT("Weapon"));
 }
 
 void AFpsGrabGunCharacter::BeginPlay()
